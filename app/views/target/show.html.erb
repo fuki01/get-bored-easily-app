@@ -1,2 +1,13 @@
-<h1>Target#show</h1>
-<p>Find me in app/views/target/show.html.erb</p>
+<h1>目標</h1>
+<h2>
+  <% if @target.nil? %>
+  <p>目標がありません</p>
+  <% else %>
+  <%= @target.body %>
+  <% end %>
+</h2>
+<% if @target.nil? %>
+<%= link_to "目標を作成する", new_target_path %>
+<% else %>
+<%= link_to "目標を消去する", target_path, method: :delete %>
+<% end %>
