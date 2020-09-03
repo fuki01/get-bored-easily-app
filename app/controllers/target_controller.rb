@@ -34,8 +34,18 @@ class TargetController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:id])
+    @target = @user.target
   end
 
+  def update
+    @user = User.find(params[:id])
+    if @user.target.update(target_params)
+      redirect_to "/target/#{current_user.id}", notice: '目標を設定しました。'
+    else
+      redirect_to "/target/#{current_user.id}/edit", notice: '目標を設定できませんでした。'
+    end
+  end
   private
 
   def target_params
