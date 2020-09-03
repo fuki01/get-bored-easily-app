@@ -10,4 +10,5 @@
 <%= link_to "目標を作成する", new_target_path %>
 <% else %>
 <%= link_to "目標を消去する", target_path, method: :delete %>
+<%= link_to "目標を編集する", edit_target_path(current_user.id) %>
 <% end %>
