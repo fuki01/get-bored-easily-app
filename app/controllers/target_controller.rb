@@ -6,6 +6,8 @@ class TargetController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @day = Day.new
+    @userDay = @user.target
     @target = @user.target
   end
 
