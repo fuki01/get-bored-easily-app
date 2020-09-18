@@ -8,18 +8,10 @@
     <%= link_to "目標を消去する", target_path, method: :delete %>
     <%= link_to "目標を編集する", edit_target_path(current_user.id) %>
   <% if @user.target.day.empty? %>
-    <%= form_for @day, url: day_index_url do |f| %>
-      <%= f.label :possible, "達成" %>
-      <%= f.check_box :possible %>
-      <%= f.submit %>
-    <% end %>
+    <%= link_to "達成" ,day_index_url, method: :post %>
   <% else %>
     <% if @user.target.day.last.entryday.strftime("%Y%m%d").to_i != Time.now.strftime('%Y%m%d').to_i  %>
-      <%= form_for @day, url: day_index_url do |f| %>
-        <%= f.label :possible, "達成" %>
-        <%= f.check_box :possible %>
-        <%= f.submit %>
-      <% end %>
+      <%= link_to "達成" ,day_index_url, method: :post %>
     <% else %>
       <p>本日の登録完了</p>
       <%= link_to '本日の登録を削除する', day_path, method: :delete %>

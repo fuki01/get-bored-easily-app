@@ -6,9 +6,9 @@ class DayController < ApplicationController
       @previous_day_cunt = @user.target.day.last.count
     end
     if !(@user.target.day.last.nil?)
-      @day = @user.target.day.build(day_params)
+      @day = @user.target.day.build
       @day.entryday =  Time.now.strftime('%Y%m%d')
-      if (Time.now.strftime('%Y%m%d').to_i - @previous_day.entryday.to_i) == 1
+      if (Time.now.strftime('%Y%m%d').to_i - @previous_day.entryday.strftime("%Y%m%d").to_i) == 1
         @day.count = @previous_day_cunt+1
       else
         @day.count = 1
