@@ -14,7 +14,7 @@
       <%= f.submit %>
     <% end %>
   <% else %>
-    <% if @user.target.day.last.created_at.strftime('%Y%m%d').to_i != Time.now.strftime('%Y%m%d').to_i  %>
+    <% if @user.target.day.last.entryday.strftime("%Y%m%d").to_i != Time.now.strftime('%Y%m%d').to_i  %>
       <%= form_for @day, url: day_index_url do |f| %>
         <%= f.label :possible, "達成" %>
         <%= f.check_box :possible %>
