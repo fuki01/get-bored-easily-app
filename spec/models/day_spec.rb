@@ -26,7 +26,7 @@ RSpec.describe Day, type: :model do
     it "entrydayが無ければ無効" do
       day = Day.new(
         entryday: nil
-      )
+        
       day.valid?
       expect(day.errors[:target_id]).to include("が入力されていません。")
     end
