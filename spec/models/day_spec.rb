@@ -2,13 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Day, type: :model do
   context '無効'do
-    it "possibleが無ければ無効" do
-      day = Day.new(
-        possible: nil
-      )
-      day.valid?
-      expect(day.errors[:possible]).to include("が入力されていません。")
-    end
     it "countが無ければ無効" do
       day = Day.new(
         count: nil
