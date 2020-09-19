@@ -1,4 +1,5 @@
 class DayController < ApplicationController
+  before_action :authenticate_user!
   def create
     @user = User.find(current_user.id)
     if !( @user.target.day.first.nil? )
