@@ -8,15 +8,15 @@ class DayController < ApplicationController
     end
     if !(set_day_last.nil?)
       @day = set_day.build
-      @day.entryday =  Time.now.strftime('%Y%m%d')
-      if (Time.now.strftime('%Y%m%d').to_i - @previous_day.entryday.strftime("%Y%m%d").to_i) == 1
+      @day.entryday =  change_time_now
+      if ontinuous_registration(@previous_day)
         day_count = @previous_day_cunt+1
       else
         @day.count = 1
       end
     else
       @day = set_day.build(day_params)
-      @day.entryday =  Time.now.strftime('%Y%m%d')
+      @day.entryday = Time.now.strftime('%Y%m%d')
       @day.count = 1
     end
     @point_sum = @day.count * 100
