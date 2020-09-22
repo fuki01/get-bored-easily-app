@@ -2,23 +2,25 @@ class DayController < ApplicationController
   before_action :authenticate_user!
   def create
     @user = User.find(current_user.id)
-    if !( @user.target.day.first.nil? )
-      @previous_day = @user.target.day.last
-      @previous_day_cunt = @user.target.day.last.count
+    if !( set_day.first.nil? )
+      @previous_day = set_day_last
+      @previous_day_cunt = set_day_last.count
     end
-    if !(@user.target.day.last.nil?)
-      @day = @user.target.day.build
+    if !(set_day_last.nil?)
+      @day = set_day.build
       @day.entryday =  Time.now.strftime('%Y%m%d')
       if (Time.now.strftime('%Y%m%d').to_i - @previous_day.entryday.strftime("%Y%m%d").to_i) == 1
-        @day.count = @previous_day_cunt+1
+        day_count = @previous_day_cunt+1
       else
         @day.count = 1
       end
     else
-      @day = @user.target.day.build(day_params)
+      @day = set_day.build(day_params)
       @day.entryday =  Time.now.strftime('%Y%m%d')
       @day.count = 1
     end
+    @point_sum = @day.count * 100
+    set_point.create(sum: @point_sum)
     if @day.save
       redirect_to "/target/#{current_user.id}", notice: '登録できました。'
     else
@@ -28,13 +30,25 @@ class DayController < ApplicationController
 
   def destroy
     @user = User.find(current_user.id)
-    if @user.target.day.last.destroy
+    if set_day_last.destroy && set_point.last.destroy
       redirect_to "/target/#{current_user.id}", notice: '消去できました。'
     else
       redirect_to "/target/#{current_user.id}", notice: '消去できませんでした。'
     end
   end
+
   private
+  def set_day
+    @user.target.day
+  end
+  def set_day_last
+    @user.target.day.last
+  end
+
+  def set_point
+    @user.target.point
+  end
+
   def day_params
     params.permit(:possible)
   end
