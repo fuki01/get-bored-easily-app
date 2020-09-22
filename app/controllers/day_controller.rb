@@ -36,6 +36,6 @@ class DayController < ApplicationController
   end
   private
   def day_params
-    params.require(:day).permit(:possible)
+    params.permit(:possible)
   end
 end
