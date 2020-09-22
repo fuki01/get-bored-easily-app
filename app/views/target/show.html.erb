@@ -1,21 +1,21 @@
 <h1>目標</h1>
 <h2>
-  <% if @user.target.nil? %>
-    <p>目標がありません</p>
-    <%= link_to "目標を作成する", new_target_path %>
-  <% else %>
-    <%= @user.target.body %><br>
-    <%= link_to "目標を消去する", target_path, method: :delete %>
-    <%= link_to "目標を編集する", edit_target_path(current_user.id) %>
-  <% if @user.target.day.empty? %>
+<% if target_nil? %>
+  <p>目標がありません</p>
+  <%= link_to "目標を作成する", new_target_path %>
+<% else %>
+  <%= body %><br>
+  <%= link_to "目標を消去する", target_path, method: :delete %>
+  <%= link_to "目標を編集する", edit_target_path(current_user.id) %>
+  <% if day_empty? %>
     <%= link_to "達成" ,day_index_url, method: :post %>
   <% else %>
-    <% if @user.target.day.last.entryday.strftime("%Y%m%d").to_i != Time.now.strftime('%Y%m%d').to_i  %>
+    <% if complete_today %>
       <%= link_to "達成" ,day_index_url, method: :post %>
     <% else %>
       <p>本日の登録完了</p>
       <%= link_to '本日の登録を削除する', day_path, method: :delete %>
     <% end %>
   <% end %>
-  <% end %>
+<% end %>
 </h2>
