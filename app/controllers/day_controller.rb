@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 class DayController < ApplicationController
   before_action :authenticate_user!
   def create
     @user = User.find(current_user.id)
-    if !( set_day.first.nil? )
+    unless set_day.first.nil?
       @previous_day = set_day_last
       @previous_day_cunt = set_day_last.count
     end
-    if !(set_day_last.nil?)
+    unless set_day_last.nil?
       @day = set_day.build
-      @day.entryday =  change_time_now
+      @day.entryday = change_time_now
       if ontinuous_registration(@previous_day)
-        day_count = @previous_day_cunt+1
+        day_count = @previous_day_cunt + 1
       else
         @day.count = 1
       end
@@ -38,9 +40,11 @@ class DayController < ApplicationController
   end
 
   private
+
   def set_day
     @user.target.day
   end
+
   def set_day_last
     @user.target.day.last
   end
