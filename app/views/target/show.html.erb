@@ -17,5 +17,9 @@
       <%= link_to '本日の登録を削除する', day_path, method: :delete %>
     <% end %>
   <% end %>
+  <br><br>
+  連続達成日数は<%= @user.target.day.count %>
+  <br><br>
+  現在は<%= @Point%>ポイントです
 <% end %>
 </h2>
