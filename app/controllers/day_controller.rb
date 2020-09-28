@@ -2,10 +2,12 @@ class DayController < ApplicationController
   before_action :authenticate_user!
   def create
     @user = User.find(current_user.id)
-    @previous_day = set_day_last
-    @previous_day_cunt = set_day_last.count
-    @day = set_day.build
+    if !( @user.target.day.first.nil? )
+      @previous_day = @user.target.day.last
+      @previous_day_cunt = @user.target.day.last.count
+    end
     if !(set_day.last.nil?)
+      @day = @user.target.day.build
       @day.entryday =  time_now_format
       if (Time.now.strftime('%Y%m%d').to_i - @previous_day.entryday.strftime("%Y%m%d").to_i) == 1
         @day.count = @previous_day_cunt+1
@@ -13,6 +15,7 @@ class DayController < ApplicationController
         @day.count = 1
       end
     else
+      @day = @user.target.day.build
       @day.entryday = time_now_format
       @day.count = 1
     end
