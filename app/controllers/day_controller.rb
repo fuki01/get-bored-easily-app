@@ -1,20 +1,19 @@
-# frozen_string_literal: true
-
 class DayController < ApplicationController
   before_action :authenticate_user!
   def create
     @user = User.find(current_user.id)
+    @previous_day = set_day_last
+    @previous_day_cunt = set_day_last.count
     @day = set_day.build
-    @day.entryday =Time.now.strftime('%Y%m%d')
-    if !set_day_last.nil?
-      @previous_day = set_day_last
-      @previous_day_cunt = set_day_last.count
+    if !(set_day.last.nil?)
+      @day.entryday =  time_now_format
       if (Time.now.strftime('%Y%m%d').to_i - @previous_day.entryday.strftime("%Y%m%d").to_i) == 1
-        day_count = @previous_day_cunt + 1
+        @day.count = @previous_day_cunt+1
       else
         @day.count = 1
       end
     else
+      @day.entryday = time_now_format
       @day.count = 1
     end
     @point_sum = @day.count * 100
@@ -28,7 +27,7 @@ class DayController < ApplicationController
 
   def destroy
     @user = User.find(current_user.id)
-    if set_day_last.destroy && set_point.last.destroy
+    if set_day_last.destroy
       redirect_to "/target/#{current_user.id}", notice: '消去できました。'
     else
       redirect_to "/target/#{current_user.id}", notice: '消去できませんでした。'
@@ -44,7 +43,13 @@ class DayController < ApplicationController
     @user.target.day.last
   end
 
+  def day_params
+    params.require(:day).permit(:possible)
+  end
   def set_point
     @user.target.point
+  end
+  def time_now_format
+    Time.now.strftime('%Y%m%d')
   end
 end
