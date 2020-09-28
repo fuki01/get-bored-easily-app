@@ -9,7 +9,6 @@ class TargetController < ApplicationController
     @day = Day.new
     @userDay = @user.target
     @target = @user.target
-    @Point = @user.target.point.all.sum(:sum) 
   end
 
   def new

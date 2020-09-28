@@ -4,21 +4,17 @@ class DayController < ApplicationController
   before_action :authenticate_user!
   def create
     @user = User.find(current_user.id)
-    unless set_day.first.nil?
+    @day = set_day.build
+    @day.entryday =Time.now.strftime('%Y%m%d')
+    if !set_day_last.nil?
       @previous_day = set_day_last
       @previous_day_cunt = set_day_last.count
-    end
-    unless set_day_last.nil?
-      @day = set_day.build
-      @day.entryday = change_time_now
-      if ontinuous_registration(@previous_day)
+      if (Time.now.strftime('%Y%m%d').to_i - @previous_day.entryday.strftime("%Y%m%d").to_i) == 1
         day_count = @previous_day_cunt + 1
       else
         @day.count = 1
       end
     else
-      @day = set_day.build(day_params)
-      @day.entryday = Time.now.strftime('%Y%m%d')
       @day.count = 1
     end
     @point_sum = @day.count * 100
@@ -40,7 +36,6 @@ class DayController < ApplicationController
   end
 
   private
-
   def set_day
     @user.target.day
   end
@@ -51,9 +46,5 @@ class DayController < ApplicationController
 
   def set_point
     @user.target.point
-  end
-
-  def day_params
-    params.permit(:possible)
   end
 end
