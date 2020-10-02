@@ -30,6 +30,7 @@ class DayController < ApplicationController
 
   def destroy
     @user = User.find(current_user.id)
+    set_point.last.destroy
     if set_day_last.destroy
       redirect_to "/target/#{current_user.id}", notice: '消去できました。'
     else
