@@ -8,6 +8,9 @@ RSpec.describe DayController, type: :controller do
     @target = FactoryBot.build(:target)
     @target.user_id = @user.id
     @target.save
+    @point = FactoryBot.build(:point)
+    @point.target_id = @target.id
+    @point.save
   end
   describe 'POST #create' do
     context 'パラメータが妥当な場合' do
@@ -55,6 +58,16 @@ RSpec.describe DayController, type: :controller do
         }
         expect(@user.target.day.last.count).to eq 1
       end
+      it 'count加算されるとpointが加算されること' do
+        @day = FactoryBot.build(:day)
+        @day.target_id = @target.id
+        @day.save
+        sign_in @user
+        post :create, params: {
+          target_id: @target.id
+        }
+        expect(Point.last.sum).to eq 200
+      end
     end
   end
   context 'ログインしていない場合' do
@@ -80,6 +93,12 @@ RSpec.describe DayController, type: :controller do
         expect{
           delete :destroy, params: { id: @target.id }
         }.to change(Day, :count).by(-1)
+      end
+      it '正常にPointを消去できること' do
+        sign_in @user
+        expect{
+          delete :destroy, params: { id: @target.id }
+        }.to change(Point, :count).by(-1)
       end
       it 'リダイレクトが正しい事' do
         sign_in @user
