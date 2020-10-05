@@ -1,0 +1,41 @@
+.field{
+}
+.account{
+  width: 360px;
+  margin: 0 auto;
+  font-family: ‘Open Sans’, sans-serif;
+  .field{
+    margin-top: 20px;
+  }
+  h2{
+    font-size: 35px;
+    font-weight: 100;
+    color: #707070;
+    margin-top: 150px;
+    text-align: center;
+  }
+  label{
+    color: #707070;
+    margin-bottom: 50px;
+  }
+  .account_forms{
+    margin-top: 100px;
+  }
+  .actions input{
+    box-shadow: 10px 10px 15px -10px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 350px;
+    height: 40px;
+    border: none;
+    border-radius: 25px;
+    &:hover{
+      color: #D1D1D1;
+      box-shadow: 10px 10px 15px -5px;
+    }
+  }
+  
+  .login{
+    color: #707070;
+  }
+}

@@ -13,3 +13,16 @@
  *= require_tree .
  *= require_self
  */
+ html{
+  height: 100vh;
+  background-color: #DEEDF4;
+}
+.form{
+  width: 350px;
+  height: 40px;
+  border: none;
+  border-radius: 25px;
+}
+:focus {
+  outline: none;
+}
