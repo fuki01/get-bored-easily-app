@@ -1,2 +1,16 @@
-<h1>Home#top</h1>
-<p>Find me in app/views/home/top.html.erb</p>
+<body>
+  <div class="wrapper">
+    <div class="column menu">
+      <div class="info-menu">
+        <%= link_to "ログイン", new_user_session_path, class: "login" %><br>
+        <%= link_to "新規登録", new_user_registration_path, class: "new" %>
+      </div>
+    </div>
+    <div class="column img">
+      <div class="info">
+        <h1>タップで物事を習慣化しましょう。</h1>
+        <h1>効率的に習慣化しましょう。</h1>
+      </div>
+    </div>
+  </div>
+</body>
