@@ -14,15 +14,22 @@
       <nav>
         <img src="/assets/header.png" width="300px" height="40" alt="" class="nav-cont">
         <br>
-        <% if user_signed_in? %>
-          <% if profile_img(current_user) %>
-            <img src="/assets/icon.png" width="50px" height="50px" class="icon-img">
-          <% else %>
-            <img src=<%= current_user.image%> class="icon_image" width="50px" height="50px">
-          <% end %>
-          <%= link_to 'プロフィール変更', edit_user_registration_path %> 
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+        <div class="menu">
+          <% if user_signed_in? %>
+            <% if profile_img(current_user) %>
+              <label for="menu_bar01"><img src="/assets/icon.png" width="50px" height="50px" class="icon-img">
+              </label>
+              <input type="checkbox" id="menu_bar01" class="accordion" />
+            <% else %>
+              <label for="menu_bar01"><img src=<%= current_user.image%> class="icon_image" width="50px" height="50px"></label>
+            <% end %>
+            <ul id="links01">
+              <li><%= link_to 'プロフィール変更', edit_user_registration_path %></li>
+              <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+            </ul>
         <% end %>
+        </div>
+
       </nav>
     </header>
     <p class="notice"><%= notice %></p>

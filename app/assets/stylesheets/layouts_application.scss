@@ -1,11 +1,55 @@
+header{
+  height: 40px;
+}
+
+.menu a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  color: #000;
+}
 nav{
   width: 800px;
   margin: 0 auto;
   display: flex;
+  .menu{
+    margin-left: auto;
+  }
   .icon-img{
     border-radius: 50px;
   }
   .icon-img{
     margin-left: auto;
   }
+  label {
+    cursor :pointer;
+  }
+  label .icon_image{
+    margin: 0 auto;
+  }
+  input {
+    display: none;
+  }
+  
+  ul {
+    margin: 0;
+    padding: 0;
+    background :#f4f4f4;
+    list-style: none;
+  }
+  
+  li {
+    height: 0;
+    overflow: hidden;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+  }
+
+}
+#menu_bar01:checked ~ #links01 li{
+  height: 54px;
+  opacity: 1;
 }
