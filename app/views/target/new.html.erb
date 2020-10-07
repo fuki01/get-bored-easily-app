@@ -1,5 +1,11 @@
-<%= form_for @target,:url => {:controller => "/target", :action => :create} do |f| %>
-  <%= f.label :body,"目標" %>
-  <%= f.text_field :body %>
-  <%= f.submit %>
-<% end %>
+<div class="target">
+  <h2>目標の設定</h2>
+  <%= form_for @target,:url => {:controller => "/target", :action => :create} do |f| %>
+    <div class="field">
+      <%= f.text_field :body,class: "form" %><br>
+    </div>
+    <div class="actions">
+    <%= f.submit "設定" %>
+    </div>
+  <% end %>
+</div>
