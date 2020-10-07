@@ -4,10 +4,9 @@
   margin-bottom: 80px;
   font-family: ‘Open Sans’, sans-serif;
   color: #5a5a5a;
-  h1{   
+  h2{   
     font-size: 35px;
-    font-weight: 　200;
-    color: #0051ff;
+    color: #0084ff;
     margin-top: 150px;
     text-align: center;
   }
@@ -16,9 +15,13 @@
     padding: 20px 30px;
     border-radius: 50px;
     background-color: white;
-    color: #0051ff;
+    color:#0084ff;
     margin-top: 60px;
     box-shadow: 10px 10px 15px -10px;
+        &:hover{
+      color: #D1D1D1;
+      box-shadow: 10px 10px 15px -5px;
+    }
   }
   .show_aitem{
     text-align: center;
