@@ -1,3 +1,27 @@
-// Place all the styles related to the target controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.show{
+  width: 400px;
+  margin: 0 auto;
+  margin-bottom: 80px;
+  font-family: ‘Open Sans’, sans-serif;
+  color: #5a5a5a;
+  h1{   
+    font-size: 35px;
+    font-weight: 　200;
+    color: #0051ff;
+    margin-top: 150px;
+    text-align: center;
+  }
+  .create_button{
+    display: inline-block;
+    padding: 20px 30px;
+    border-radius: 50px;
+    background-color: white;
+    color: #0051ff;
+    margin-top: 60px;
+    box-shadow: 10px 10px 15px -10px;
+  }
+  .show_aitem{
+    text-align: center;
+    font-size: 25px;
+   }
+}

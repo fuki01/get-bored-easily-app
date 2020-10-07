@@ -1,25 +1,28 @@
-<h1>目標</h1>
-<h2>
-<% if target_nil? %>
-  <p>目標がありません</p>
-  <%= link_to "目標を作成する", new_target_path %>
-<% else %>
-  <%= body %><br>
-  <%= link_to "目標を消去する", target_path, method: :delete %>
-  <%= link_to "目標を編集する", edit_target_path(current_user.id) %>
-  <% if day_empty? %>
-    <%= link_to "達成" ,day_index_url, method: :post %>
+<div class="show">
+  <h1>目標</h1>
+  <% if target_nil? %>
+    <div class="show_aitem">
+      <p>目標を設定しましょう。</p><br>
+      <p>6日連続で目標を達成しましょう。</p>
+      <%= link_to "目標を作成する", new_target_path, class: "create_button" %>
+    </div>
   <% else %>
-    <% if complete_today %>
+    <%= body %><br>
+    <%= link_to "目標を消去する", target_path, method: :delete %>
+    <%= link_to "目標を編集する", edit_target_path(current_user.id) %>
+    <% if day_empty? %>
       <%= link_to "達成" ,day_index_url, method: :post %>
     <% else %>
-      <p>本日の登録完了</p>
-      <%= link_to '本日の登録を削除する', day_path, method: :delete %>
+      <% if complete_today %>
+        <%= link_to "達成" ,day_index_url, method: :post %>
+      <% else %>
+        <p>本日の登録完了</p>
+        <%= link_to '本日の登録を削除する', day_path, method: :delete %>
+      <% end %>
     <% end %>
+    <br><br>
+    連続達成日数は<%= @user.target.day.count %>
+    <br><br>
+    現在は<%= @Point%>ポイントです
   <% end %>
-  <br><br>
-  連続達成日数は<%= @user.target.day.count %>
-  <br><br>
-  現在は<%= @Point%>ポイントです
-<% end %>
-</h2>
+</div>
