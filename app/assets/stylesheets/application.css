@@ -15,6 +15,7 @@
  */
 
  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400&display=swap');
+ @import 'reset.scss'
  html{
   height: 100vh;
   font-family: 'Noto Sans JP', sans-serif;
@@ -31,6 +32,7 @@ body{
   margin: 0;
 }
 .form{
+  display: inline-block;
   width: 300px;
   height: 20px;
   background-color: #eee;
@@ -38,6 +40,10 @@ body{
   border-width: 1em;
   border-color: #eee;
   border-radius: 5px;
+  margin: 0 auto;
+}
+h2{
+  margin-top: 20px;
 }
 :focus {
   outline: none;
