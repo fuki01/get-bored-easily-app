@@ -1,4 +1,6 @@
-<div class="target">
+ <div class="target">
+  <div class="secand_show">
+  <div class="target_new_items">
   <h2>目標の設定</h2>
   <%= form_for @target,:url => {:controller => "/target", :action => :create} do |f| %>
     <div class="field">
@@ -8,4 +10,6 @@
     <%= f.submit "設定" %>
     </div>
   <% end %>
+  </div>
+  </div>
 </div>

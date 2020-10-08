@@ -1,11 +1,11 @@
-<div class="show">
+<div class="target">
   <div class="second_show">
   <h2>目標</h2>
   <% if target_nil? %>
     <div class="show_aitem">
       <p>目標を設定しましょう。</p><br>
-      <p>6日連続で目標を達成しましょう。</p>
-      <%= link_to "目標を作成する", new_target_path, class: "create_button" %>
+      <p>7日連続で目標を達成しましょう。</p>
+      <%= link_to "目標を設定する", new_target_path, class: "create_button" %>
     </div>
   <% else %>
     <div class="target_context">
