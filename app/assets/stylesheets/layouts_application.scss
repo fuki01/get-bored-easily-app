@@ -96,9 +96,6 @@ header{
   width: 110px; /* メニューの個別の幅 */
   text-align: center;
 }
-.scroll-nav ul li:hover {
-  background: rgb(255, 253, 132); /* マウスホバー時の背景色 */
-}
 .scroll-nav ul li a {
   display: inline-block;
   color: rgb(99, 99, 99); /* メニューの文字色 */
