@@ -15,10 +15,9 @@
  */
 
  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400&display=swap');
- @import 'reset.scss'
+ @import 'reset.scss';
  html{
   height: 100vh;
-  font-family: 'Noto Sans JP', sans-serif;
 }
 main{
   background-color:#f6f6f4;
