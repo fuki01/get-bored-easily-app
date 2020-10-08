@@ -37,9 +37,11 @@
         <div class="nav-wrap">
           <div class="scroll-nav">
             <ul>
+            <% if user_signed_in? %>
               <li><%= link_to 'ホーム', target_path(current_user.id) %></li>
+            <% end %>
               <li><a href="#">ランキング</a></li>
-              <li><a href="#">友達の頑張り</a></li>
+              <li><a href="#">menu</a></li>
             </ul>
           </div>
           <div class="next-btn">＞</div>
