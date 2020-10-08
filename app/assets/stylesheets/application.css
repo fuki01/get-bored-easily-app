@@ -31,10 +31,13 @@ body{
   margin: 0;
 }
 .form{
-  width: 350px;
-  height: 40px;
-  border: none;
-  border-radius: 25px;
+  width: 300px;
+  height: 20px;
+  background-color: #eee;
+  border-style: solid;
+  border-width: 1em;
+  border-color: #eee;
+  border-radius: 5px;
 }
 :focus {
   outline: none;

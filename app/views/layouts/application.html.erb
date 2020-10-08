@@ -11,7 +11,7 @@
   </head>
   <body>
     <header>
-      <nav>
+      <div class="header">
         <img src="/assets/header.png" width="300px" height="40" alt="" class="nav-cont">
         <br>
         <div class="menu">
@@ -26,12 +26,24 @@
               <div class="arrow_down3"></div>
             <% end %>
             <ul id="links01">
+              <li><%= link_to 'マイページ', edit_user_registration_path %></li>
               <li><%= link_to 'プロフィール変更', edit_user_registration_path %></li>
               <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
             </ul>
-        <% end %>
+          <% end %>
         </div>
-
+      </div>
+      <nav>
+        <div class="nav-wrap">
+          <div class="scroll-nav">
+            <ul>
+              <li><%= link_to 'ホーム', target_path(current_user.id) %></li>
+              <li><a href="#">ランキング</a></li>
+              <li><a href="#">友達の頑張り</a></li>
+            </ul>
+          </div>
+          <div class="next-btn">＞</div>
+        </div>
       </nav>
     </header>
     <p class="notice"><%= notice %></p>

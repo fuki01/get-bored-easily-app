@@ -1,5 +1,5 @@
 header{
-  height: 40px;
+  height: 80px;
 }
 
 .menu a {
@@ -8,8 +8,9 @@ header{
   text-decoration: none;
   color: #000;
 }
-nav{
+.header{
   display: flex;
+  height: 50px;
   .menu{
     margin-left: auto;
   }
@@ -69,6 +70,62 @@ nav{
     -o-transition: all 0.5s;
     transition: all 0.5s;
   }
+}
+.nav-wrap {
+  position: relative;
+  margin: 0;
+}
+.scroll-nav {
+  width: 100%;
+  background: #DEEDF4; /* メニューの背景色 */
+  margin: 0;
+  -webkit-overflow-scrolling: touch; /* 慣性スクロール */
+}
+.scroll-nav ul {
+  max-width: 1060px; /* メニューの最大幅 */
+  min-width: 770px; /* メニューの最小幅 */
+  height: 40px;
+  margin: 0;
+  line-height: 40px;
+  margin-right: auto;
+  list-style: none;
+  padding-right: 25px; /* 右側の固定分余白を空ける */
+}
+.scroll-nav ul li {
+  float: left;
+  width: 110px; /* メニューの個別の幅 */
+  text-align: center;
+}
+.scroll-nav ul li:hover {
+  background: rgb(255, 253, 132); /* マウスホバー時の背景色 */
+}
+.scroll-nav ul li a {
+  display: inline-block;
+  color: rgb(99, 99, 99); /* メニューの文字色 */
+  text-decoration: none;
+}
+.next-btn { /* 右側に固定する部分 */
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 25px; /* 固定部分の幅 */
+  height: 40px; /* メニューの高さに合わせる */
+  line-height: 40px;
+  background: #fff;
+  color: rgb(44, 44, 44);
+}
+@media only screen and (min-width: 771px) { /* PCサイズでの指定 */
+.scroll-nav ul {
+  padding: 0;
+  position: absolute;
+  z-index: 100;
+}
+.scroll-nav ul li {
+  width: 14.2%; /* メニューの個別の幅 */
+}
+.next-btn {
+  display: none; /* 右側の固定部分を非表示 */
+}
 }
 #menu_bar01:checked ~ #links01 li{
   height: 54px;
