@@ -13,9 +13,22 @@
  *= require_tree .
  *= require_self
  */
+
+ @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400&display=swap');
  html{
   height: 100vh;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+main{
+  background-color:#f6f6f4;
+  padding: 10px 0;
+}
+header{
   background-color: #DEEDF4;
+}
+body{
+  height: 100%;
+  margin: 0;
 }
 .form{
   width: 350px;

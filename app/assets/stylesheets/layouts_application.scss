@@ -9,8 +9,6 @@ header{
   color: #000;
 }
 nav{
-  width: 800px;
-  margin: 0 auto;
   display: flex;
   .menu{
     margin-left: auto;
@@ -21,8 +19,32 @@ nav{
   .icon-img{
     margin-left: auto;
   }
+  .nav-cont{
+    margin: 5px;
+  }
   label {
+    display: inline-block;
     cursor :pointer;
+    width: 150px;
+    .arrow {
+      position: relative;
+      top: 0;
+      left: 0;
+      }
+    .arrow::before {
+      content: "";
+      margin-top: -40px;
+      margin-right: -20px;
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 50%;
+      width: 14px;
+      height: 14px;
+      border-top: 1px solid rgb(70, 70, 70);
+      border-right: 1px solid rgb(70, 70, 70);
+      transform: translateX(-50%) rotate(135deg);
+    }
   }
   label .icon_image{
     margin: 0 auto;
@@ -47,7 +69,6 @@ nav{
     -o-transition: all 0.5s;
     transition: all 0.5s;
   }
-
 }
 #menu_bar01:checked ~ #links01 li{
   height: 54px;

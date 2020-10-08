@@ -1,4 +1,5 @@
 <div class="show">
+  <div class="second_show">
   <h2>目標</h2>
   <% if target_nil? %>
     <div class="show_aitem">
@@ -7,22 +8,42 @@
       <%= link_to "目標を作成する", new_target_path, class: "create_button" %>
     </div>
   <% else %>
-    <%= body %><br>
-    <%= link_to "目標を消去する", target_path, method: :delete %>
-    <%= link_to "目標を編集する", edit_target_path(current_user.id) %>
+    <div class="target_context">
+      <%= body %><br>
+    </div>
+    <div class="target_url">
+      <%= link_to "目標を消去する", target_path, method: :delete %>
+      <%= link_to "目標を編集する", edit_target_path(current_user.id) %><br> 
+    </div>
+    <h2>連続日数</h2>
+    <p class="day_count"><%= @user.target.day.count %>日</p>
+    <div class="day">
+      <p class="first_day">1日</p>
+      <p class="last_day">7日</p>
+    </div>
+    <progress max="7" value="<%= @user.target.day.count %>" class="progress_st"> 90% </progress>
+    <br><br>
     <% if day_empty? %>
-      <%= link_to "達成" ,day_index_url, method: :post %>
+      <div class="registration_group">
+        <p>本日の達成はありません</p>
+        <%= button_to "達成" ,day_index_url, method: :post ,class: "registration_button",
+        data: { disable_with: '登録中...' } %>
+      </div>
     <% else %>
       <% if complete_today %>
-        <%= link_to "達成" ,day_index_url, method: :post %>
+        <div class="registration_group">
+          <p>本日の達成はありません</p>
+          <%= button_to "達成" ,day_index_url, method: :post,class: "registration_button",
+          data: { disable_with: '登録中...' }  %>
+        </div>
       <% else %>
-        <p>本日の登録完了</p>
-        <%= link_to '本日の登録を削除する', day_path, method: :delete %>
+        <div class="registration_group">
+          <p>本日の達成完了</p>
+          <%= button_to '取り消し', day_path, method: :delete,class: "registration_button",
+          data: { disable_with: '取り消し中...' } %>
+        </div>
       <% end %>
     <% end %>
-    <br><br>
-    連続達成日数は<%= @user.target.day.count %>
-    <br><br>
-    現在は<%= @Point%>ポイントです
   <% end %>
+  </div>
 </div>
