@@ -12,16 +12,16 @@
       <%= body %><br>
     </div>
     <div class="target_url">
-      <%= link_to "目標を消去する", target_path, method: :delete %>
+      <%= link_to "目標を削除する", target_path, method: :delete %>
       <%= link_to "目標を編集する", edit_target_path(current_user.id) %><br> 
     </div>
     <h2>連続日数</h2>
-    <p class="day_count"><%= @user.target.day.count %>日</p>
+    <p class="day_count"><%= @user.target.day.last.count %>日</p>
     <div class="day">
       <p class="first_day">1日</p>
       <p class="last_day">7日</p>
     </div>
-    <progress max="7" value="<%= @user.target.day.count %>" class="progress_st"> 90% </progress>
+    <progress max="7" value="<%= @user.target.day.last.count %>" class="progress_st"> 90% </progress>
     <br><br>
     <% if day_empty? %>
       <div class="registration_group">
