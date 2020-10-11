@@ -22,9 +22,12 @@ class DayController < ApplicationController
     @point_sum = @day.count * 100
     set_point.create(sum: @point_sum)
     if @day.save
-      redirect_to "/target/#{current_user.id}", notice: '登録できました。'
+      text = "本日は、#{@day.count*100}ポイント取得しました。".html_safe
+      redirect_to "/target/#{current_user.id}"
+      flash[:notice]= text
     else
-      redirect_to "/target/#{current_user.id}", notice: '登録できませんでした。'
+      redirect_to "/target/#{current_user.id}", notice: '登録できませんでした。もう一度お試しください。'
+
     end
   end
 

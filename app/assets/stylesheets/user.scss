@@ -10,4 +10,13 @@
     width: 360px;
     margin: 0 auto;
   }
+  #error_explanation{
+    display: inline;
+    text-align: center;
+    width: 500px;
+    h2{
+      font-size: 20px;
+      color: red;
+    }
+  }
 }
