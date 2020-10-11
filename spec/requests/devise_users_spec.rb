@@ -4,9 +4,9 @@ RSpec.describe "DeviseUsers", type: :request do
   let(:user) { create(:user) }
   let(:user_params) { attributes_for(:user)}
   let(:invalid_user_params) { attributes_for(:user, username: "") }
-
   describe "POST #create" do
     before do
+      
     end
     context 'パラメータが妥当な場合' do
       it "リクエストが成功する事" do
@@ -17,10 +17,6 @@ RSpec.describe "DeviseUsers", type: :request do
         expect do
           post user_registration_path, params: { user: user_params }
         end.to change(User, :count).by 1
-      end
-      it "リダイレクトされる事" do
-        post user_registration_path, params: { user: user_params }
-        expect(response).to redirect_to root_url
       end
     end
 
