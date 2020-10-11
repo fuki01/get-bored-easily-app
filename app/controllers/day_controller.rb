@@ -2,12 +2,12 @@ class DayController < ApplicationController
   before_action :authenticate_user!
   def create
     @user = User.find(current_user.id)
-    if !( @user.target.day.first.nil? )
-      @previous_day = @user.target.day.last
-      @previous_day_cunt = @user.target.day.last.count
+    if !( @user.targets.last.day.first.nil? )
+      @previous_day = @user.targets.last.day.last
+      @previous_day_cunt = @user.targets.last.day.last.count
     end
     if !(set_day.last.nil?)
-      @day = @user.target.day.build
+      @day = @user.targets.last.day.build
       @day.entryday =  time_now_format
       if (Time.now.strftime('%Y%m%d').to_i - @previous_day.entryday.strftime("%Y%m%d").to_i) == 1
         @day.count = @previous_day_cunt+1
@@ -15,7 +15,7 @@ class DayController < ApplicationController
         @day.count = 1
       end
     else
-      @day = @user.target.day.build
+      @day = @user.targets.last.day.build
       @day.entryday = time_now_format
       @day.count = 1
     end
@@ -43,18 +43,18 @@ class DayController < ApplicationController
 
   private
   def set_day
-    @user.target.day
+    @user.targets.last.day
   end
 
   def set_day_last
-    @user.target.day.last
+    @user.targets.last.day.last
   end
 
   def day_params
     params.require(:day).permit(:possible)
   end
   def set_point
-    @user.target.point
+    @user.targets.last.point
   end
   def time_now_format
     Time.now.strftime('%Y%m%d')

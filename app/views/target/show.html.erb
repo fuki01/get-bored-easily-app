@@ -16,19 +16,19 @@
       <%= link_to "目標を編集する", edit_target_path(current_user.id) %><br> 
     </div>
     <h2>連続日数</h2>
-    <% if @user.target.day.empty?%>
+    <% if @user.targets.last.day.empty?%>
     <p class="day_count">0日</p>
     <% else %>
-    <p class="day_count"><%= @user.target.day.last.count %>日</p>
+    <p class="day_count"><%= @user.targets.last.day.last.count %>日</p>
     <% end %>
     <div class="day">
       <p class="first_day">1日</p>
       <p class="last_day">7日</p>
     </div>
-    <% if @user.target.day.empty?%>
+    <% if @user.targets.last.day.empty?%>
     <progress max="7" value="0" class="progress_st"></progress>
     <% else %>
-    <progress max="7" value="<%= @user.target.day.last.count %>" class="progress_st"></progress>
+    <progress max="7" value="<%= @user.targets.last.day.last.count %>" class="progress_st"></progress>
     <% end %>
     <br><br>
     <% if day_empty? %>

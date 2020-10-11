@@ -7,8 +7,8 @@ class TargetController < ApplicationController
   def show
     @user = User.find(params[:id])
     @day = Day.new
-    @userDay = @user.target
-    @target = @user.target
+    @userDay = @user.targets.last
+    @target = @user.targets.last
   end
 
   def new
@@ -18,7 +18,8 @@ class TargetController < ApplicationController
 
   def create
     @user = User.find(current_user.id)
-    @target = @user.build_target(target_params)
+    @target = @user.targets.new(target_params)
+    @target.user_id = current_user.id
     if @target.save
       redirect_to "/target/#{current_user.id}", notice: '目標を設定しました。'
     else
@@ -28,7 +29,7 @@ class TargetController < ApplicationController
 
   def destroy
     @user = User.find(current_user.id)
-    if @user.target.destroy
+    if @user.targets.last.destroy
       redirect_to target_path, notice: '目標を削除しました。'
     else
       redirect_to target_path, notice: '目標を削除できませんでした。'
@@ -37,12 +38,12 @@ class TargetController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    @target = @user.target
+    @target = @user.targets.last
   end
 
   def update
     @user = User.find(params[:id])
-    if @user.target.update(target_params)
+    if @user.targets.last.update(target_params)
       redirect_to "/target/#{current_user.id}", notice: '目標を設定しました。'
     else
       redirect_to "/target/#{current_user.id}/edit", notice: '目標を設定できませんでした。'
