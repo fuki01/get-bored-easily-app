@@ -46,7 +46,7 @@ RSpec.describe DayController, type: :controller do
         post :create, params: {
           target_id: @target.id
         }
-        expect(@user.target.day.last.count).to eq 2
+        expect(@user.targets.last.day.last.count).to eq 2
       end
       it '作成日が連日で無ければcountがされないこと' do
         @another_day = FactoryBot.build(:another_day)
@@ -56,7 +56,7 @@ RSpec.describe DayController, type: :controller do
         post :create, params: {
           target_id: @target.id
         }
-        expect(@user.target.day.last.count).to eq 1
+        expect(@user.targets.last.day.last.count).to eq 1
       end
       it 'count加算されるとpointが加算されること' do
         @day = FactoryBot.build(:day)

@@ -135,7 +135,7 @@ RSpec.describe TargetController, type: :controller do
         sign_in user
         target_params = { body: '朝起きる' }
         patch :update, params: { id: user.id, target: target_params }
-        expect(user.target.reload.body).to eq '朝起きる'
+        expect(user.targets.last.reload.body).to eq '朝起きる'
       end
       it 'リダイレクトが正しい事' do
         sign_in user
@@ -154,7 +154,7 @@ RSpec.describe TargetController, type: :controller do
         sign_in user
         target_params = { body: nil }
         patch :update, params: { id: user.id, target: target_params }
-        expect(user.target.reload.body).to eq "早く寝る"
+        expect(user.targets.last.reload.body).to eq "早く寝る"
       end
       it 'リダイレクトが正しい事' do
         sign_in user
@@ -215,6 +215,22 @@ RSpec.describe TargetController, type: :controller do
       it 'リダイレクトが正しい事' do
         delete :destroy, params: {id: user.id}
         expect(response).to redirect_to user_session_path
+      end
+    end
+  end
+
+  describe '#GET #list' do
+    context 'ログインしている場合'do
+      it 'アクセスが成功する事' do
+        sign_in user
+        get :list
+        expect(response).to be_successful
+      end
+    end
+    context 'ログインしていない場合'do
+      it 'アクセスが成功しないこと' do
+        get :list
+        expect(response).to_not be_successful
       end
     end
   end
