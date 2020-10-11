@@ -49,6 +49,10 @@ class TargetController < ApplicationController
       redirect_to "/target/#{current_user.id}/edit", notice: '目標を設定できませんでした。'
     end
   end
+
+  def list
+    @targets = current_user.targets.all
+  end
   private
 
   def target_params
