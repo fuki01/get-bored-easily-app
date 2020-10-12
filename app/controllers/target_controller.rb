@@ -7,8 +7,8 @@ class TargetController < ApplicationController
   def show
     @user = User.find(params[:id])
     @day = Day.new
-    @userDay = @user.targets.last
-    @target = @user.targets.last
+    @userDay = target_last_set
+    @target = target_last_set
   end
 
   def new
@@ -29,7 +29,7 @@ class TargetController < ApplicationController
 
   def destroy
     @user = User.find(current_user.id)
-    if @user.targets.last.destroy
+    if target_last_set.destroy
       redirect_to target_path, notice: '目標を削除しました。'
     else
       redirect_to target_path, notice: '目標を削除できませんでした。'
@@ -38,12 +38,12 @@ class TargetController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    @target = @user.targets.last
+    @target = target_last_set
   end
 
   def update
     @user = User.find(params[:id])
-    if @user.targets.last.update(target_params)
+    if target_last_set.update(target_params)
       redirect_to "/target/#{current_user.id}", notice: '目標を設定しました。'
     else
       redirect_to "/target/#{current_user.id}/edit", notice: '目標を設定できませんでした。'
@@ -55,6 +55,9 @@ class TargetController < ApplicationController
   end
   private
 
+  def target_last_set
+    @user.targets.last
+  end
   def target_params
     params.require(:target).permit(:body)
   end
