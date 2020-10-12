@@ -53,6 +53,10 @@ class TargetController < ApplicationController
   def list
     @targets = current_user.targets.all
   end
+
+  def clear
+    
+  end
   private
 
   def user_find_set
