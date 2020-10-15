@@ -13,4 +13,11 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
     devise_parameter_sanitizer.permit :sign_in, keys: added_attrs
   end
+
+  def clear_page
+    if ! (current_user.targets.last.day.last.count == 7)
+      flash[:notice]="クリアーしていません。"
+      redirect_to target_path(current_user.id)
+    end
+  end
 end

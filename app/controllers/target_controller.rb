@@ -1,6 +1,6 @@
 class TargetController < ApplicationController
   before_action :authenticate_user!
-
+  before_action :clear_page,{only: [:clear]}
   def index
   end
 
@@ -55,7 +55,6 @@ class TargetController < ApplicationController
   end
 
   def clear
-    
   end
   private
 
