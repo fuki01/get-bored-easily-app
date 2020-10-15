@@ -16,7 +16,6 @@ RSpec.describe DayController, type: :controller do
     context 'パラメータが妥当な場合' do
       day_params = FactoryBot.attributes_for(:day)
       it '302レスポンスが返ってくる事' do
-        day_params = FactoryBot.attributes_for(:day)
         sign_in @user
         post :create, params: {
           day: day_params
@@ -48,16 +47,7 @@ RSpec.describe DayController, type: :controller do
         }
         expect(@user.targets.last.day.last.count).to eq 2
       end
-      it '作成日が連日で無ければcountがされないこと' do
-        @another_day = FactoryBot.build(:another_day)
-        @another_day.target_id = @target.id
-        @another_day.save
-        sign_in @user
-        post :create, params: {
-          target_id: @target.id
-        }
-        expect(@user.targets.last.day.last.count).to eq 1
-      end
+
       it 'count加算されるとpointが加算されること' do
         @day = FactoryBot.build(:day)
         @day.target_id = @target.id
@@ -68,6 +58,38 @@ RSpec.describe DayController, type: :controller do
         }
         expect(Point.last.sum).to eq 200
       end
+      it 'countが７になった場合のリダイレクトが正しいこと' do
+        @day = FactoryBot.build(:seven_day)
+        @day.target_id = @target.id
+        @day.save
+        sign_in @user
+        post :create, params:{
+          target_id: @target.id
+        }
+        expect(response).to redirect_to target_clear_path(@target.id)
+      end
+    end
+    context 'パラメータが不当な場合' do
+      it '作成日が連日で無ければcountがされないこと' do
+        @another_day = FactoryBot.build(:another_day)
+        @another_day.target_id = @target.id
+        @another_day.save
+        sign_in @user
+        post :create, params: {
+          target_id: @target.id
+        }
+        expect(@user.targets.last.day.last.count).to eq 1
+      end
+      it 'countが７でない場合のリダイレクトが正しいこと' do
+        @day = FactoryBot.build(:day)
+        @day.target_id = @target.id
+        @day.save
+        sign_in @user
+        post :create, params: {
+          target_id: @target.id
+        }
+        expect(response).to redirect_to target_path(@user.id)
+      end
     end
   end
   context 'ログインしていない場合' do
@@ -75,7 +97,6 @@ RSpec.describe DayController, type: :controller do
       post :create
       expect(response).to have_http_status '302'
     end
-
     it "リダイレクトが正しいこと" do
       post :create
       expect(response).to redirect_to user_session_path
