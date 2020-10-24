@@ -1,6 +1,7 @@
 class TargetController < ApplicationController
   before_action :authenticate_user!
   before_action :clear_page,{only: [:clear]}
+  before_action :target_day_seven,{only: [:create,:show]}
   def index
   end
 
@@ -21,9 +22,9 @@ class TargetController < ApplicationController
     @target = @user.targets.new(target_params)
     @target.user_id = current_user.id
     if @target.save
-      redirect_to "/target/#{current_user.id}", notice: '目標を設定しました。'
+      redirect_to "/target/#{@user.targets.last.id}", notice: '目標を設定しました。'
     else
-      redirect_to "/target/#{current_user.id}", notice: '目標を設定できませんでした。'
+      redirect_to "/target/#{@user.targets.last.id}", notice: '目標を設定できませんでした。'
     end
   end
 
