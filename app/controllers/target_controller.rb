@@ -1,7 +1,7 @@
 class TargetController < ApplicationController
   before_action :authenticate_user!
   before_action :clear_page,{only: [:clear]}
-  before_action :target_day_seven,{only: [:create,:show]}
+  # before_action :target_day_seven,{only: [:show,:edit]}
   def index
   end
 
