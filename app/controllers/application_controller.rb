@@ -15,11 +15,23 @@ class ApplicationController < ActionController::Base
   end
 
   def clear_page
-    if ! (current_user.targets.last.day.last.count == 7)
-      flash[:notice]="クリアーしていません。"
-      redirect_to target_path(current_user.id)
+    if current_user.targets.last.day.nil?
+      if ! (current_user.targets.last.day.last.count == 7)
+        flash[:notice]="クリアーしていません。"
+        redirect_to target_path(current_user.id)
+      end
     end
   end
+  
+  def target_day_seven
+    if current_user.targets.last.day.nil?
+      if current_user.targets.last.day.last.count == 7
+        flash[:notice]="アクセスできません"
+        redirect_to target_clear_path
+      end
+    end
+  end
+
   def previous_day_count
     User.find(current_user.id).targets.last.day.count + 1
   end
