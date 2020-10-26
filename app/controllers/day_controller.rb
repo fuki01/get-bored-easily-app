@@ -25,7 +25,7 @@ class DayController < ApplicationController
       redirect_to target_clear_path(@user.targets.last.id)
       flash[:notice]= text
     elsif @day.save
-      text = "本日は、#{@day.count*100}ポイント取得しました。".html_safe
+      text = "本日は、100ポイント取得しました。".html_safe
       redirect_to target_path(current_user.id)
       flash[:notice]= text
     else
