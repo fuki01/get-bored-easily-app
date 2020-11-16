@@ -20,12 +20,11 @@ class DayController < ApplicationController
     end
     @point_sum = @day.count*100
     set_point.create(sum: @point_sum)
-
     if @day.count >7
       redirect_to new_target_path, notice: '登録できませんでした。'
     elsif @day.save && @day.count == 7
+      @user.targes.last.update(clear: true);
       text = "7日連続で達成されました！".html_safe
-      redirect_to target_clear_path(@user.targets.last.id)
       flash[:notice]= text
     elsif @day.save && @day.count <= 7
       text = "本日は、100ポイント取得しました。".html_safe

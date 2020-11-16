@@ -14,6 +14,9 @@
     <div class="target_url">
       <%= link_to "目標を削除する", target_path, method: :delete %>
       <%= link_to "目標を編集する", edit_target_path(current_user.id) %><br> 
+      <% if @day.count.to_i > 7 %>
+        <%=　link_to "目標を新しくする", new_target_path %><br> 
+      <% end %>
     </div>
     <h2>連続日数</h2>
     <% if @user.targets.last.day.empty?%>

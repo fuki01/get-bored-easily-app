@@ -10,6 +10,9 @@ class TargetController < ApplicationController
     @day = Day.new
     @userDay = target_last_set
     @target = target_last_set
+    if @user.targets.last.clear
+      redirect_to target_clear_path
+    end
   end
 
   def new
