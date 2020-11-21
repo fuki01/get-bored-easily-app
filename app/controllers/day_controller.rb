@@ -20,23 +20,23 @@ class DayController < ApplicationController
     end
     @point_sum = @day.count*100
     set_point.create(sum: @point_sum)
-    if @day.save && @day.count == 7
+    if @day.count >7
+      redirect_to new_target_path, notice: '登録できませんでした。'
+    elsif @day.save && @day.count == 7
+      @user.targets.last.update(clear: true);
       text = "7日連続で達成されました！".html_safe
-      redirect_to target_clear_path(@user.targets.last.id)
       flash[:notice]= text
-    elsif @day.save
-      text = "本日は、#{@day.count*100}ポイント取得しました。".html_safe
+      redirect_to target_clear_path
+    elsif @day.save && @day.count <= 7
+      text = "本日は、100ポイント取得しました。".html_safe
       redirect_to target_path(current_user.id)
       flash[:notice]= text
-    else
-      redirect_to target_path(current_user.id), notice: '登録できませんでした。もう一度お試しください。'
     end
   end
 
   def destroy
     @user = user_find
-    set_point.last.destroy
-    if set_day_last.destroy
+    if @user.targets.last.day.last.destroy && @user.targets.last.point.last.destroy
       redirect_to target_path(current_user.id), notice: '消去できました。'
     else
       redirect_to target_path(current_user.id), notice: '消去できませんでした。'
