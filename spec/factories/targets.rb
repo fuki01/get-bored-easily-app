@@ -1,6 +1,10 @@
 FactoryBot.define do
-  factory :target do
+  factory :target, class: Target do
     body { "早く寝る"}
-    user_id { 1 }
+    clear { false }
+  end
+  factory :target_clear, class: Target do
+    body {"テスト用データ"}
+    clear { true }
   end
 end
