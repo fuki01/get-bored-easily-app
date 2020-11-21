@@ -66,7 +66,7 @@ RSpec.describe DayController, type: :controller do
         post :create, params:{
           target_id: @target.id
         }
-        expect(response).to redirect_to target_clear_path(@target.id)
+        expect(response).to redirect_to target_clear_path
       end
     end
     context 'パラメータが不当な場合' do
