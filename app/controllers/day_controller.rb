@@ -23,9 +23,10 @@ class DayController < ApplicationController
     if @day.count >7
       redirect_to new_target_path, notice: '登録できませんでした。'
     elsif @day.save && @day.count == 7
-      @user.targes.last.update(clear: true);
+      @user.targets.last.update(clear: true);
       text = "7日連続で達成されました！".html_safe
       flash[:notice]= text
+      redirect_to target_clear_path
     elsif @day.save && @day.count <= 7
       text = "本日は、100ポイント取得しました。".html_safe
       redirect_to target_path(current_user.id)
@@ -35,8 +36,7 @@ class DayController < ApplicationController
 
   def destroy
     @user = user_find
-    set_point.last.destroy
-    if set_day_last.destroy
+    if @user.targets.last.day.last.destroy && @user.targets.last.point.last.destroy
       redirect_to target_path(current_user.id), notice: '消去できました。'
     else
       redirect_to target_path(current_user.id), notice: '消去できませんでした。'
