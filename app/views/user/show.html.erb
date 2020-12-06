@@ -1,0 +1,23 @@
+<div class="account">
+<div class="profile">
+<h2>プロフィール</h2>
+
+<% if @user.nil? %>
+  <div class="profile_img"><img src=<%= @user.image%> width="100px" height="100px"></div>
+<%else%>
+  <div class="profile_img"><img src="/assets/icon.png" width="100px" height="100px"></div>
+<%end%>
+<div class="email">
+  <p><%= @user.email %></p>
+</div>
+<div class="user_name">
+  <h2><%= @user.username %></h2>
+</div>
+<div class="user_point">
+  <p>合計ポイント<%= @point %></p>
+</div>
+<div class="change_profile_link">
+  <p><%= link_to "プロフィールの編集",edit_user_registration_path %></p>
+</div>
+</div>
+</div>
