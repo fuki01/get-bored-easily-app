@@ -19,7 +19,7 @@ class DayController < ApplicationController
       add_a_count
     end
     @point_sum = @day.count*100
-    set_point.create(sum: @point_sum)
+    set_point.create(sum: @point_sum,User_id: @user.id)
     if @day.count >7
       redirect_to new_target_path, notice: '登録できませんでした。'
     elsif @day.save && @day.count == 7
