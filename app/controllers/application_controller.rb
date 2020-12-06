@@ -35,10 +35,18 @@ class ApplicationController < ActionController::Base
   def previous_day_count
     User.find(current_user.id).targets.last.day.count + 1
   end
+
   def not_day_first_nil?
     !( set_day.first.nil? )
   end
+
   def day_continuous
     (Time.now.strftime('%Y%m%d').to_i - set_day_last.entryday.strftime("%Y%m%d").to_i)
+  end
+  
+  def access_restriction!
+    if !(current_user.id == params[:id].to_i)
+      redirect_to root_path, notice: "アクセスできません"
+    end
   end
 end

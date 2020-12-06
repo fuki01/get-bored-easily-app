@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_29_053806) do
+ActiveRecord::Schema.define(version: 2020_11_21_145429) do
 
   create_table "days", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "count"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2020_10_29_053806) do
     t.integer "target_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "User_id"
   end
 
   create_table "targets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
