@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'point/show'
   root 'home#top'
   devise_for :users
   get 'user/:id' => "user#show", as: 'user_profile'
