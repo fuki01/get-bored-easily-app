@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Myapp</title>
+    <title>Proceedly</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -22,7 +22,10 @@
               </label>
               <input type="checkbox" id="menu_bar01" class="accordion" />
             <% else %>
-              <label for="menu_bar01"><img src=<%= current_user.image%> class="icon_image" width="50px" height="50px"></label>
+              <label for="menu_bar01"><img src=<%= current_user.image%> class="icon-img" width="50px" height="50px">
+                <div class="arrow"></div>
+              </label>
+              <input type="checkbox" id="menu_bar01" class="accordion" />
               <div class="arrow_down3"></div>
             <% end %>
             <ul id="links01">
@@ -41,7 +44,7 @@
             <% if user_signed_in? %>
               <li><%= link_to 'ホーム', target_path(current_user.id) %></li>
             <% end %>
-              <li><a href="#">ランキング</a></li>
+              <li><%= link_to 'ランキング', point_show_path%></li>
               <li><a href="#">menu</a></li>
             </ul>
           </div>
