@@ -1,3 +1,26 @@
-// Place all the styles related to the point controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.point{
+  width: 90%;
+  padding: 15px 25px;
+  margin: 10px auto;
+  background-color: white;
+  h2{
+    font-size: 35px;
+    text-align: center;
+    color: #0084ff;
+    margin-top: 20px;
+  }
+  table{
+    margin: auto;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    text-align: center;
+    p{
+      font-size: 15px;
+      margin: 10px;
+    }
+    img{
+      border-radius: 25%;
+    }
+  }
+}
+
