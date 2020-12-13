@@ -1,5 +1,4 @@
 class PointController < ApplicationController
-  # ランキング
   def show
     @users = User.all
     @points = Point.all

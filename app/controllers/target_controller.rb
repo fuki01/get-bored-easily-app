@@ -1,15 +1,15 @@
 class TargetController < ApplicationController
   before_action :authenticate_user!
   before_action :clear_page,{only: [:clear]}
-  # before_action :target_day_seven,{only: [:show,:edit]}
+  before_action :target_nil, {only: [:show]}
   def index
+    @targets = User.find(current_user.id).targets.all
   end
 
   def show
     @user = user_find_set
     @day = Day.new
-    @userDay = target_last_set
-    @target = target_last_set
+    @target = Target.find(params[:id])
     if !@target.nil?
       if @target.clear
         redirect_to target_clear_path
@@ -62,6 +62,7 @@ class TargetController < ApplicationController
 
   def clear
   end
+
   private
 
   def user_find_set

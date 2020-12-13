@@ -29,7 +29,7 @@ class DayController < ApplicationController
       redirect_to target_clear_path
     elsif @day.save && @day.count <= 7
       text = "本日は、100ポイント取得しました。".html_safe
-      redirect_to target_path(current_user.id)
+      redirect_to target_index_path
       flash[:notice]= text
     end
   end

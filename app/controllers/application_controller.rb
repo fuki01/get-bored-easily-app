@@ -22,6 +22,12 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  def target_nil
+    if current_user.targets.last.nil?
+      redirect_to target_index_path
+    end
+  end
   
   def target_day_seven
     if current_user.targets.last.day.nil?

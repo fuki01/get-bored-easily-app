@@ -42,7 +42,7 @@
           <div class="scroll-nav">
             <ul>
             <% if user_signed_in? %>
-              <li><%= link_to 'ホーム', target_path(current_user.id) %></li>
+              <li><%= link_to 'ホーム', target_index_path %></li>
             <% end %>
               <li><%= link_to 'ランキング', point_show_path%></li>
               <li><a href="#">menu</a></li>

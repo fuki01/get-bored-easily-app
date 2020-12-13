@@ -1,0 +1,11 @@
+<div class="target">
+  <h2>新しく目標を建てる</h2>
+  <div class = "target_new_button">
+  <%= link_to "目標を設定する", new_target_path, class: "create_button" %>
+  </div>
+  <h2>一覧</h2>
+    <% @targets.each do |t| %>
+      <%= t.body %>
+      <%= link_to "記録する", target_path(t.id)%><br>
+    <% end %>
+</div>
