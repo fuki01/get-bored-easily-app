@@ -16,18 +16,16 @@ RSpec.describe TargetController, type: :controller do
       sign_in @user
     end
     it 'アクセスが成功する事' do
-      get :show, params: { id: @user.id }
+      get :show, params: { id: @target.id }
       expect(response).to be_successful
     end
     it '200レスポンスが返ってくる事' do
-      get :show, params: { id: @user.id }
+      get :show, params: { id: @target.id }
       expect(response).to have_http_status '200'
     end
     it 'targetのclearカラムがtrueの場合のリダイレクト先が正しいこと' do
-      @target_true = FactoryBot.build(:target_clear)
-      @target_true.user_id = @user.id
-      @target_true.save
-      get :show, params: {id: @user.id}
+      @target_true = FactoryBot.create(:target,user_id: @user.id,clear: true)
+      get :show, params: {id: @target_true.id}
       expect(response).to redirect_to target_clear_path
     end
   end
@@ -84,7 +82,7 @@ RSpec.describe TargetController, type: :controller do
             user_id: @user.id
           }
         }
-        expect(response).to redirect_to "/target/"
+        expect(response).to redirect_to "/target"
       end
       it 'ユーザーが登録されないこと' do
         expect do
@@ -218,7 +216,7 @@ RSpec.describe TargetController, type: :controller do
       end
       it 'リダイレクトが正しい事' do
         delete :destroy, params: {id: @user.id}
-        expect(response).to redirect_to target_path(@user.id)
+        expect(response).to redirect_to target_index_path
       end
     end
     context 'ログインしていない場合' do

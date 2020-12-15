@@ -35,7 +35,7 @@ RSpec.describe DayController, type: :controller do
         post :create, params: {
           day: day_params
         }
-        expect(response).to redirect_to target_path(@user.id)
+        expect(response).to redirect_to target_index_path
       end
       it '作成日が連日で有ればcountが加算されること' do
         @day = FactoryBot.build(:day)
@@ -88,7 +88,7 @@ RSpec.describe DayController, type: :controller do
         post :create, params: {
           target_id: @target.id
         }
-        expect(response).to redirect_to target_path(@user.id)
+        expect(response).to redirect_to target_index_path
       end
     end
   end
