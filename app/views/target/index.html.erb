@@ -1,10 +1,14 @@
 <div class="target">
+<h2>ホーム</h2>
+  <% if(@target_false_count < 5) %>
   <div class = "target_new_button">
-    <h2>新しく目標を建てる</h2>
+    <h3>新しく目標を建てる</h3>
     <%= link_to "目標を設定する", new_target_path, class: "create_button" %>
   </div>
+  <% end %>
+
   <div class="target_list">
-    <h2>目標の一覧</h2>
+    <h3>目標の一覧</h3>
     <p>
       <% @targets.each do |t| %>
         <table width="500px">
