@@ -167,7 +167,13 @@ $color_code_blue:#0084ff;
     }
   p{
     text-align: center;
+    margin: 20px auto;
     font-size: 20px;
+  }
+  table{
+    width: 50%;
+    table-layout: fixed;
+    margin: 0 auto;
   }
   .registration_group{
     margin-top: 50px;

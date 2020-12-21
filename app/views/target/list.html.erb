@@ -1,8 +1,15 @@
 <div class="target">
     <h2>目標一覧</h2>
-    <p>
     <% @targets.each do |t| %>
-    <%= t.body %><br>
+    <table>
+    <tr>
+        <td><p><%= t.body %></p></td>
+        <% if t.clear %>
+        <td><p>達成済みです</p></td>
+        <% else %>
+        <td><p>未達成です</p></td>
+        <% end %>
+    </tr>
+    </table>
     <% end %>
-    </p>
 </div>
