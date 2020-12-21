@@ -2,8 +2,9 @@ class TargetController < ApplicationController
   before_action :authenticate_user!
   before_action :clear_page,{only: [:clear]}
   before_action :target_nil, {only: [:show]}
+  before_action :target_limit, {only: [:create]}
   def index
-    @targets = User.find(current_user.id).targets.all
+    @targets = User.find(current_user.id).targets.where(clear: false)
     @target_false_count = User.find(current_user.id).targets.where(clear: false).count
   end
 

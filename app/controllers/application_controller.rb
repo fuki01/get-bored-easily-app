@@ -16,10 +16,17 @@ class ApplicationController < ActionController::Base
 
   def clear_page
     if current_user.targets.last.day.nil?
-      if ! (current_user.targets.last.day.last.count == 7)
+      if ! (current_user.targets.where(clear: false).count == 7)
         flash[:notice]="クリアーしていません。"
         redirect_to target_path(current_user.id)
       end
+    end
+  end
+
+  def target_limit
+    if current_user.targets.where(clear: false).count >= 5
+      flash[:notice] = "5個ずつしか登録出来ません。"
+      redirect_to target_index_path
     end
   end
 
