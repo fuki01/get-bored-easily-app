@@ -1,15 +1,17 @@
 class TargetController < ApplicationController
   before_action :authenticate_user!
   before_action :clear_page,{only: [:clear]}
-  # before_action :target_day_seven,{only: [:show,:edit]}
+  before_action :target_nil, {only: [:show]}
+  before_action :target_limit, {only: [:create]}
   def index
+    @targets = User.find(current_user.id).targets.where(clear: false)
+    @target_false_count = User.find(current_user.id).targets.where(clear: false).count
   end
 
   def show
     @user = user_find_set
     @day = Day.new
-    @userDay = target_last_set
-    @target = target_last_set
+    @target = Target.find(params[:id])
     if !@target.nil?
       if @target.clear
         redirect_to target_clear_path
@@ -26,19 +28,20 @@ class TargetController < ApplicationController
     @user = user_find_set
     @target = @user.targets.new(target_params)
     @target.user_id = current_user.id
+    @target.clear = false
     if @target.save
       redirect_to "/target/#{@user.targets.last.id}", notice: '目標を設定しました。'
     else
-      redirect_to "/target/#{@user.targets.last.id}", notice: '目標を設定できませんでした。'
+      redirect_to target_index_path, notice: '目標を設定できませんでした。'
     end
   end
 
   def destroy
     @user = user_find_set
     if target_last_set.destroy
-      redirect_to target_path, notice: '目標を削除しました。'
+      redirect_to target_index_path, notice: '目標を削除しました。'
     else
-      redirect_to target_path, notice: '目標を削除できませんでした。'
+      redirect_to target_index_path, notice: '目標を削除できませんでし。'
     end
   end
 
@@ -62,6 +65,7 @@ class TargetController < ApplicationController
 
   def clear
   end
+
   private
 
   def user_find_set

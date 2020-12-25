@@ -1,0 +1,27 @@
+<div class="target">
+<h2>ホーム</h2>
+  <% if(@target_false_count < 5) %>
+  <div class = "target_new_button">
+    <h3>新しく目標を建てる</h3>
+    <%= link_to "目標を設定する", new_target_path, class: "create_button" %>
+  </div>
+  <% end %>
+  <% if !@targets.nil? %>
+  <div class="target_list">
+    <h3>目標の一覧</h3>
+    <p>
+    
+      <% @targets.each do |t| %>
+        <table width="500px">
+          <tr>
+            <td><%= t.body %></td>
+            <td><%= link_to "記録する", target_path(t.id),class: "record_button"%></td>
+            <td><%= link_to "目標を編集", edit_target_path(t.id),class: "record_button" %></td>
+            <td><%= link_to "目標を削除", target_path(t.id), method: :delete,class: "record_button" %></td>
+          </tr>
+        </table>
+      <% end %>
+    </p>
+  </div>
+  <% end%>
+</div>

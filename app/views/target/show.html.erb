@@ -1,22 +1,9 @@
+<%= debug body%>
 <div class="target">
   <div class="second_show">
   <h2>目標</h2>
-  <% if target_nil? %>
-    <div class="show_aitem">
-      <p>目標を設定しましょう。</p><br>
-      <p>7日連続で目標を達成しましょう。</p>
-      <%= link_to "目標を設定する", new_target_path, class: "create_button" %>
-    </div>
-  <% else %>
     <div class="target_context">
-      <%= body %><br>
-    </div>
-    <div class="target_url">
-      <%= link_to "目標を削除する", target_path, method: :delete %>
-      <%= link_to "目標を編集する", edit_target_path(current_user.id) %><br> 
-      <% if @day.count.to_i > 7 %>
-        <%=　link_to "目標を新しくする", new_target_path %><br> 
-      <% end %>
+      <%= @target.body  %><br>
     </div>
     <h2>連続日数</h2>
     <% if @user.targets.last.day.empty?%>
@@ -55,6 +42,5 @@
         </div>
       <% end %>
     <% end %>
-  <% end %>
   </div>
 </div>
