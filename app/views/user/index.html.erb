@@ -1,0 +1,7 @@
+
+<% @users.each do |user| %>
+  <% if user != current_user %>
+    <%= user.username %>
+    <%= render 'relationships/follow_button', user: user %>
+  <% end %>
+<% end %>
