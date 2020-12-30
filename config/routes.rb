@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   get 'target/clear' => 'target#clear', as:'target_clear'
   resources :target
   resources :relationships, only: [:create, :destroy]
+  get 'follower_list/:id' => "relationships#follower", as: 'follower_list'
+  get 'follow_list/:id' => "relationships#follow", as: 'follow_list'
   resources :day, only: [:create, :destroy]
 end

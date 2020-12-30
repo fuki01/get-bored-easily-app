@@ -1,7 +1,6 @@
-
 <% @users.each do |user| %>
   <% if user != current_user %>
-    <%= user.username %>
+  <%= link_to "#{user.username}" ,user_profile_path(user.id)%>
     <%= render 'relationships/follow_button', user: user %>
   <% end %>
 <% end %>

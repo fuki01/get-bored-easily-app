@@ -1,0 +1,6 @@
+<% @followers.each do |follower|%>
+  <%= follower.user.username %><br>
+<% end %>
+<% if @followers.nil? %>
+<p>フォロワーされていません</p>
+<% end %>

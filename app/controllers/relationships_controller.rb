@@ -1,6 +1,13 @@
 class RelationshipsController < ApplicationController
-  before_action :set_user
+  before_action :set_user,only: [:destroy,:create]
 
+  
+  def follow
+    @follows = Relationship.where(follow_id: params[:id]);
+  end
+  def follower
+    @followers = Relationship.where(user_id: params[:id]);
+  end
   def create
     following = current_user.follow(@user)
     if following.save
