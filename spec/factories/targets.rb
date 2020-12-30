@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :target do 
     body {'早く寝る'}
-    clear {false}
+    association :user
   end
 end
