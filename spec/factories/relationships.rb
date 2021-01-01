@@ -1,6 +1,5 @@
 FactoryBot.define do
-  factory :target do 
-    body {'早く寝る'}
+  factory :relationship do
     association :user
   end
 end

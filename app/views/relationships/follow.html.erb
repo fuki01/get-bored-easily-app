@@ -1,0 +1,6 @@
+<% @follows.each do |follow|%>
+  <%= follow.user.username %><br>
+<% end %>
+<% if @follows.nil? %>
+<p>フォローされていません。</p>
+<% end %>

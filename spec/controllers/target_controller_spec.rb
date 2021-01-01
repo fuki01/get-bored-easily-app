@@ -3,16 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe TargetController, type: :controller do
-  # let(:user) { FactoryBot.create(:user) }
-  let(:another_user) { FactoryBot.build(:another_user) }
-  before do
-    @user = FactoryBot.create(:user)
-    @target = FactoryBot.build(:target)
-    @target.user_id = @user.id
-    @target.save
-  end
   describe 'GET #show' do
     before do
+      @user = FactoryBot.create(:user)
+      @target = FactoryBot.create(:target, user: @user)
       sign_in @user
     end
     it 'アクセスが成功する事' do
@@ -32,6 +26,8 @@ RSpec.describe TargetController, type: :controller do
 
   describe 'GET #new' do
     before do
+      @user = FactoryBot.create(:user)
+      @target = FactoryBot.create(:target)
       sign_in @user
     end
     it 'アクセスが成功する事' do
@@ -48,6 +44,8 @@ RSpec.describe TargetController, type: :controller do
     let(:target_attributes) { attributes_for(:target) }
     context 'パラメータが妥当な場合' do
       before do
+        @user = FactoryBot.create(:user)
+        @target = FactoryBot.create(:target)
         sign_in @user
       end
       it '302レスポンスが返ってくる事' do
@@ -73,6 +71,8 @@ RSpec.describe TargetController, type: :controller do
     end
     context 'パラメータが不正な場合' do
       before do
+        @user = FactoryBot.create(:user)
+        @target = FactoryBot.create(:target)
         sign_in @user
       end
       it 'リダイレクトが正しいこと' do
@@ -108,6 +108,10 @@ RSpec.describe TargetController, type: :controller do
   end
 
   describe 'GET #edit' do
+    before do
+      @user = FactoryBot.create(:user)
+      @target = FactoryBot.create(:target)
+    end
     context 'ログインしている場合' do
       it '正常なレスポンスの場合' do
         sign_in @user
@@ -121,10 +125,16 @@ RSpec.describe TargetController, type: :controller do
       end
     end
     context '無許可なユーザーな場合' do
-      it '正常なレスポンスが返ってくる事' do
-        sign_in another_user
-        get :edit, params: { id: @user.id }
-        expect(response).to_not be_successful
+      before do
+        @user = FactoryBot.create(:user)
+        another_user = FactoryBot.create(:user)
+        @target = FactoryBot.create(:target, user: another_user)
+      end
+      it 'targetを変更できないこと' do
+        target_params = FactoryBot.attributes_for(:target, body: "edit body")
+        sign_in @user
+        get :edit, params: { id: @target.id, target: target_params}
+        expect(@target.reload.body).to eq "早く寝る"
       end
     end
     context 'ログインしていない場合' do
@@ -140,6 +150,10 @@ RSpec.describe TargetController, type: :controller do
   end
 
   describe 'PATCH #update' do
+    before do
+      @user = FactoryBot.create(:user)
+      @target = FactoryBot.create(:target)
+    end
     context 'ログインしている場合' do
       before do
         @target = FactoryBot.build(:target)
@@ -202,6 +216,10 @@ RSpec.describe TargetController, type: :controller do
   end
 
   describe '#DELETE #delete' do
+    before do
+      @user = FactoryBot.create(:user)
+      @target = FactoryBot.create(:target)
+    end
     context 'ログインしている場合' do
       before do
         @target = FactoryBot.build(:target)
@@ -232,6 +250,10 @@ RSpec.describe TargetController, type: :controller do
   end
 
   describe '#GET #list' do
+    before do
+      @user = FactoryBot.create(:user)
+      @target = FactoryBot.create(:target)
+    end
     context 'ログインしている場合'do
       it 'アクセスが成功する事' do
         sign_in @user

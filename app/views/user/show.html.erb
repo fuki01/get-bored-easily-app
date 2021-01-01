@@ -13,11 +13,16 @@
 <div class="user_name">
   <h2><%= @user.username %></h2>
 </div>
+<div class="form-follows">
+|<%=link_to "フォロワー#{@follower_cnt}",follow_list_path(@user.id) %>|<%= link_to "フォロー#{@follow_cnt}",follower_list_path(@user.id)%>|
+</div>
 <div class="user_point">
   <p>合計ポイント<%= @point %></p>
 </div>
+<% if current_user==@user %>
 <div class="change_profile_link">
   <p><%= link_to "プロフィールの編集",edit_user_registration_path %></p>
 </div>
+<% end %>
 </div>
 </div>

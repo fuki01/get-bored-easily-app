@@ -1,0 +1,21 @@
+<div class="account">
+<h2>検索</h2>
+  <div class="accounts">
+    <% @users.each do |user| %>
+      <% if user != current_user %>
+        <div class="account_outline">
+        <ul>
+          <% if profile_img(user) %>
+            <li><img src="/assets/icon.png" width="30px" height="30px"></li>
+          <%else%>
+            <li><img src=<%= @user.image%> width="30px" height="30px"></li>
+          <%end%>
+          <li class="username"><%= link_to "#{user.username}" ,user_profile_path(user.id)%></li>
+          <li class="email"><%= link_to "#{user.email}" ,user_profile_path(user.id)%></li>
+          <li><%= render 'relationships/follow_button', user: user %></li>
+        </ul>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
