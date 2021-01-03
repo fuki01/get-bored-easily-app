@@ -45,6 +45,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def login_user_ridirect
+    if !current_user.nil?
+      redirect_to target_index_path
+    end
+  end
+
   def previous_day_count
     User.find(current_user.id).targets.last.day.count + 1
   end
