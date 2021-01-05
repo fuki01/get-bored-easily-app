@@ -8,7 +8,7 @@ class DayController < ApplicationController
     if !(set_day_last.nil?)
       @day = set_day.build
       @day.entryday =  time_now_format
-      if day_continuous == 1 
+      if day_continuous == 1
         @day.count = @previous_day_cunt+1
       else
         add_a_count
@@ -51,18 +51,18 @@ class DayController < ApplicationController
   end
 
   def set_day
-    @user.targets.last.day
+    @user.targets.find(params[:id]).day
   end
 
   def set_day_last
-    @user.targets.last.day.last
+    @user.targets.find(params[:id]).day.last
   end
 
   def day_params
     params.require(:day).permit(:possible)
   end
   def set_point
-    @user.targets.last.point
+    @user.targets.find(params[:id]).point
   end
   def time_now_format
     Time.now.strftime('%Y%m%d')

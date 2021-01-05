@@ -10,5 +10,7 @@ Rails.application.routes.draw do
   resources :relationships, only: [:create, :destroy]
   get 'follower_list/:id' => "relationships#follower", as: 'follower_list'
   get 'follow_list/:id' => "relationships#follow", as: 'follow_list'
-  resources :day, only: [:create, :destroy]
+  post 'day_create/:id' => "day#create", as: "day_create"
+  post 'day_destroy/:id' => "day#destroy", as: "day_destroy"
+
 end

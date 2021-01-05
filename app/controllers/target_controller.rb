@@ -12,6 +12,13 @@ class TargetController < ApplicationController
     @user = user_find_set
     @day = Day.new
     @target = Target.find(params[:id])
+    # dayが存在するかの判定　存在しなければ０
+    if @user.targets.find(params[:id]).day.last.present?
+      @day_count = @user.targets.find(params[:id]).day.count
+    else
+      @day_count = 0
+    end
+    # クリアページへの判定
     if !@target.nil?
       if @target.clear
         redirect_to target_clear_path
@@ -30,7 +37,7 @@ class TargetController < ApplicationController
     @target.user_id = current_user.id
     @target.clear = false
     if @target.save
-      redirect_to "/target/#{@user.targets.last.id}", notice: '目標を設定しました。'
+      redirect_to target_index_path, notice: '目標を設定しました。'
     else
       redirect_to target_index_path, notice: '目標を設定できませんでした。'
     end

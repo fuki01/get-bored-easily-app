@@ -4,6 +4,7 @@
   <div class = "target_new_button">
     <h3>新しく目標を建てる</h3>
     <%= link_to "目標を設定する", new_target_path, class: "create_button" %>
+    <p>残り<%= 5-@targets.count %>個目標を決めれます。</p>
   </div>
   <% end %>
   <% if !@targets.nil? %>
