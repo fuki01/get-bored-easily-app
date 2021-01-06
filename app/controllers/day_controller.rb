@@ -18,8 +18,6 @@ class DayController < ApplicationController
       @day.entryday = time_now_format
       add_a_count
     end
-    @point_sum = @day.count*100
-    set_point.create(sum: @point_sum,User_id: @user.id)
     if @day.count >7
       redirect_to new_target_path, notice: '登録できませんでした。'
     elsif @day.save && @day.count == 7
@@ -31,15 +29,17 @@ class DayController < ApplicationController
       text = "本日は、100ポイント取得しました。".html_safe
       redirect_to target_index_path
       flash[:notice]= text
+    else
+      redirect_to new_target_path, notice: '登録できませんでした。'
     end
   end
 
   def destroy
     @user = user_find
-    if @user.targets.last.day.last.destroy && @user.targets.last.point.last.destroy
-      redirect_to target_path(current_user.id), notice: '消去できました。'
+    if @user.targets.find(params[:id]).day.last.destroy
+      redirect_to target_path, notice: '消去できました。'
     else
-      redirect_to target_path(current_user.id), notice: '消去できませんでした。'
+      redirect_to target_path, notice: '消去できませんでした。'
     end
   end
 
@@ -51,18 +51,15 @@ class DayController < ApplicationController
   end
 
   def set_day
-    @user.targets.find(params[:id]).day
+    @user.targets.find(params[:target_id]).day
   end
 
   def set_day_last
-    @user.targets.find(params[:id]).day.last
+    @user.targets.find(params[:target_id]).day.last
   end
 
   def day_params
     params.require(:day).permit(:possible)
-  end
-  def set_point
-    @user.targets.find(params[:id]).point
   end
   def time_now_format
     Time.now.strftime('%Y%m%d')

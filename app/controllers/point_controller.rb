@@ -13,6 +13,5 @@ class PointController < ApplicationController
       @rank.push([user.username, @point_sum, user.image])
     end
       @rank=@rank.sort{|a,b| a[1]<=>b[1]}.reverse
-      logger.debug(@rank)
   end
 end

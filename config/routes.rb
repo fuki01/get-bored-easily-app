@@ -6,11 +6,11 @@ Rails.application.routes.draw do
   get 'user/:id' => "user#show", as: 'user_profile'
   get 'target/list' => 'target#list'
   get 'target/clear' => 'target#clear', as:'target_clear'
-  resources :target
+  resources :target, only: [:index, :new, :create, :edit, :show, :update] do
+    resources :day, only: [:create, :destroy]
+  end
+  delete 'target/:id' => 'target#destroy', as: 'target_destroy'
   resources :relationships, only: [:create, :destroy]
   get 'follower_list/:id' => "relationships#follower", as: 'follower_list'
   get 'follow_list/:id' => "relationships#follow", as: 'follow_list'
-  post 'day_create/:id' => "day#create", as: "day_create"
-  post 'day_destroy/:id' => "day#destroy", as: "day_destroy"
-
 end

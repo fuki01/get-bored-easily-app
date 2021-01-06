@@ -18,7 +18,7 @@
             <td><%= t.body %></td>
             <td><%= link_to "記録する", target_path(t.id),class: "record_button"%></td>
             <td><%= link_to "目標を編集", edit_target_path(t.id),class: "record_button" %></td>
-            <td><%= link_to "目標を削除", target_path(t.id), method: :delete,class: "record_button" %></td>
+            <td><%= link_to "目標を削除", target_destroy_path(t.id), method: :delete,class: "record_button" %></td>
           </tr>
         </table>
       <% end %>
