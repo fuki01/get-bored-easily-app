@@ -23,5 +23,12 @@ RSpec.describe Day, type: :model do
       day.valid?
       expect(day.errors[:target_id]).to include("が入力されていません。")
     end
+    it "user_idが無ければ無効" do
+      day = Day.new(
+        User_id: nil
+      )
+      day.valid?
+      expect(day.errors[:User_id]).to include("が入力されていません。")
+    end
   end
 end
