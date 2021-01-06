@@ -8,7 +8,6 @@ class User < ApplicationRecord
   mount_uploader :image, ImageUploader
   
   has_many :targets
-  has_many :point
 
   has_many :relationships
   has_many :followings, through: :relationships, source: :follow
