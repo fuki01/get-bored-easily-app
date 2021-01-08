@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_06_161614) do
+ActiveRecord::Schema.define(version: 2021_01_08_085029) do
 
   create_table "days", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "count"
@@ -18,14 +18,6 @@ ActiveRecord::Schema.define(version: 2021_01_06_161614) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "entryday"
-    t.integer "User_id"
-  end
-
-  create_table "points", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "sum"
-    t.integer "target_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "user_id"
   end
 
