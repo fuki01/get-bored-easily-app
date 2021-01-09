@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
   end
 
   def day_continuous
-    (Time.now.strftime('%Y%m%d').to_i - set_day_last.entryday.strftime("%Y%m%d").to_i)
+    (Time.now.strftime('%Y%m%d').to_i - set_day.last.entryday.strftime("%Y%m%d").to_i)
   end
   
   def access_restriction!

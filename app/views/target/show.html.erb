@@ -36,7 +36,7 @@
       <% else %>
         <div class="registration_group">
           <p>本日の達成完了</p>
-          <%= button_to '取り消し', target_day_path(@target.day.last.id), method: :delete,class: "registration_button",
+          <%= button_to '取り消し', target_day_path(@target.id), method: :delete,class: "registration_button",
           data: { disable_with: '取り消し中...' } %>
         </div>
       <% end %>

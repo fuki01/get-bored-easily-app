@@ -60,9 +60,9 @@ class TargetController < ApplicationController
   def update
     @user = user_find_set
     if target_set.update(target_params)
-      redirect_to "/target/#{current_user.id}", notice: '目標を設定しました。'
+      redirect_to target_index_path, notice: '目標を設定しました。'
     else
-      redirect_to "/target/#{current_user.id}/edit", notice: '目標を設定できませんでした。'
+      redirect_to target_index_path, notice: '目標を設定できませんでした。'
     end
   end
 

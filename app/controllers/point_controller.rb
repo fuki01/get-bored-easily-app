@@ -1,17 +1,10 @@
 class PointController < ApplicationController
   def show
     @users = User.all
-    @points = Point.all
-    @rank = []
+    @points = []
     @users.each do |user|
-      @point_sum = 0
-      @points.each do |point|
-        if user.id == point.User_id
-          @point_sum += point.sum
-        end
-      end
-      @rank.push([user.username, @point_sum, user.image])
+      @points.push([user.username, user.user_point(user) ,user.image])
     end
-      @rank=@rank.sort{|a,b| a[1]<=>b[1]}.reverse
+    @points = @points.sort{|a,b| a[1]<=>b[1]}.reverse
   end
 end

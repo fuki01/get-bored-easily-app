@@ -28,4 +28,8 @@ class User < ApplicationRecord
   def following?(other_user)
     self.followings.include?(other_user)
   end
+
+  def user_point(other_user)
+    Day.where(user_id: other_user.id).count * 100
+  end
 end
