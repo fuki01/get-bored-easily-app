@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :target do 
-    body {'早く寝る'}
+    sequence(:body) { |n|"早く寝る#{n}"}
     association :user
   end
 end

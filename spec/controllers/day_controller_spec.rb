@@ -5,12 +5,8 @@ require 'rails_helper'
 RSpec.describe DayController, type: :controller do
   before do
     @user = FactoryBot.create(:user)
-    @target = FactoryBot.build(:target)
-    @target.user_id = @user.id
-    @target.save
-    @point = FactoryBot.build(:point)
-    @point.target_id = @target.id
-    @point.save
+    @target = FactoryBot.create(:target, user: @user)
+    @day = FactoryBot.create(:day, count: 1,entryday: (Time.now - 1.days).strftime('%Y%m%d'), target_id: @target.id, user_id: @user.id)
   end
   describe 'POST #create' do
     context 'パラメータが妥当な場合' do
@@ -18,6 +14,7 @@ RSpec.describe DayController, type: :controller do
       it '302レスポンスが返ってくる事' do
         sign_in @user
         post :create, params: {
+          target_id: @target.id,
           day: day_params
         }
         expect(response).to have_http_status '302'
@@ -26,6 +23,7 @@ RSpec.describe DayController, type: :controller do
         sign_in @user
         expect do
           post :create, params: {
+          target_id: @target.id,
             day: day_params
           }
         end.to change(Day, :count).by(1)
@@ -33,35 +31,22 @@ RSpec.describe DayController, type: :controller do
       it 'リダイレクトが正しい事' do
         sign_in @user
         post :create, params: {
+          target_id: @target.id,
           day: day_params
         }
         expect(response).to redirect_to target_index_path
       end
       it '作成日が連日で有ればcountが加算されること' do
-        @day = FactoryBot.build(:day)
-        @day.target_id = @target.id
-        @day.save
+        @day = FactoryBot.create(:day, count: 1,entryday: (Time.now - 1.days).strftime('%Y%m%d'), target_id: @target.id, user_id: @user.id)
         sign_in @user
         post :create, params: {
           target_id: @target.id
         }
-        expect(@user.targets.last.day.last.count).to eq 2
+        expect(@user.targets.find(@target.id).day.last.count).to eq 2
       end
 
-      it 'count加算されるとpointが加算されること' do
-        @day = FactoryBot.build(:day)
-        @day.target_id = @target.id
-        @day.save
-        sign_in @user
-        post :create, params: {
-          target_id: @target.id
-        }
-        expect(Point.last.sum).to eq 200
-      end
       it 'countが７になった場合のリダイレクトが正しいこと' do
-        @day = FactoryBot.build(:seven_day)
-        @day.target_id = @target.id
-        @day.save
+        @day = FactoryBot.create(:day, count: 6,entryday: (Time.now - 1.days).strftime('%Y%m%d'), target_id: @target.id, user_id: @user.id)
         sign_in @user
         post :create, params:{
           target_id: @target.id
@@ -71,9 +56,7 @@ RSpec.describe DayController, type: :controller do
     end
     context 'パラメータが不当な場合' do
       it '作成日が連日で無ければcountがされないこと' do
-        @another_day = FactoryBot.build(:another_day)
-        @another_day.target_id = @target.id
-        @another_day.save
+        @day = FactoryBot.create(:day, count: 6,entryday: (Time.now - 2.days).strftime('%Y%m%d'), target_id: @target.id, user_id: @user.id)
         sign_in @user
         post :create, params: {
           target_id: @target.id
@@ -81,9 +64,7 @@ RSpec.describe DayController, type: :controller do
         expect(@user.targets.last.day.last.count).to eq 1
       end
       it 'countが７でない場合のリダイレクトが正しいこと' do
-        @day = FactoryBot.build(:day)
-        @day.target_id = @target.id
-        @day.save
+        @day = FactoryBot.create(:day, count: 1,entryday: (Time.now - 1.days).strftime('%Y%m%d'), target_id: @target.id, user_id: @user.id)
         sign_in @user
         post :create, params: {
           target_id: @target.id
@@ -94,46 +75,35 @@ RSpec.describe DayController, type: :controller do
   end
   context 'ログインしていない場合' do
     it "302レスポンスが返ってくること" do
-      post :create
+      post :create, params:{target_id: @target.id}
       expect(response).to have_http_status '302'
     end
     it "リダイレクトが正しいこと" do
-      post :create
+      post :create, params:{target_id: @target.id}
       expect(response).to redirect_to user_session_path
     end
   end
   describe 'DELETE #destroy' do
-    before do
-      @day = FactoryBot.build(:day)
-      @day.target_id = @target.id
-      @day.save
-    end
     context 'ログインしている場合' do
       it '正常にDayを消去できる事' do
         sign_in @user
         expect{
-          delete :destroy, params: { id: @target.id }
+          delete :destroy, params: { id: @day.id ,target_id: @target.id }
         }.to change(Day, :count).by(-1)
-      end
-      it '正常にPointを消去できること' do
-        sign_in @user
-        expect{
-          delete :destroy, params: { id: @target.id }
-        }.to change(Point, :count).by(-1)
       end
       it 'リダイレクトが正しい事' do
         sign_in @user
-        delete :destroy, params: { id: @target.id }
-        expect(response).to redirect_to target_path(@user.id)
+        delete :destroy, params: { id: @day.id ,target_id: @target.id }
+        expect(response).to redirect_to target_path(@day.id)
       end
     end
     context 'ログインしていない場合' do
       it '302レスポンスを返す場合' do
-        delete :destroy, params: { id: @user.id }
+        delete :destroy, params: { id: @day.id ,target_id: @target.id }
         expect(response).to have_http_status "302"
       end
       it 'リダイレクトが正しい場合' do
-        delete :destroy, params: { id: @user.id }
+        delete :destroy, params: { id: @day.id ,target_id: @target.id }
         expect(response).to redirect_to user_session_path
       end
     end
