@@ -5,38 +5,38 @@
       <%= @target.body  %><br>
     </div>
     <h2>連続日数</h2>
-    <% if @user.targets.last.day.empty?%>
+    <% if @user.targets.find(params[:id]).day.empty?%>
     <p class="day_count">0日</p>
     <% else %>
-    <p class="day_count"><%= @user.targets.last.day.last.count %>日</p>
+    <p class="day_count"><%= @day_count %>日</p>
     <% end %>
     <div class="day">
       <p class="first_day">1日</p>
       <p class="last_day">7日</p>
     </div>
-    <% if @user.targets.last.day.empty?%>
+    <% if @user.targets.find(params[:id]).day.empty?%>
     <progress max="7" value="0" class="progress_st"></progress>
     <% else %>
-    <progress max="7" value="<%= @user.targets.last.day.last.count %>" class="progress_st"></progress>
+    <progress max="7" value="<%= @day_count %>" class="progress_st"></progress>
     <% end %>
     <br><br>
     <% if day_empty? %>
       <div class="registration_group">
         <p>本日の達成はありません</p>
-        <%= button_to "達成" ,day_index_url, method: :post ,class: "registration_button",
+        <%= button_to "達成" ,target_day_index_url(@target.id), method: :post ,class: "registration_button",
         data: { disable_with: '登録中...' } %>
       </div>
     <% else %>
       <% if complete_today %>
         <div class="registration_group">
           <p>本日の達成はありません</p>
-          <%= button_to "達成" ,day_index_url, method: :post,class: "registration_button",
+          <%= button_to "達成" ,target_day_index_url(@target.id), method: :post,class: "registration_button",
           data: { disable_with: '登録中...' }  %>
         </div>
       <% else %>
         <div class="registration_group">
           <p>本日の達成完了</p>
-          <%= button_to '取り消し', day_path, method: :delete,class: "registration_button",
+          <%= button_to '取り消し', target_day_path(@target.id), method: :delete,class: "registration_button",
           data: { disable_with: '取り消し中...' } %>
         </div>
       <% end %>

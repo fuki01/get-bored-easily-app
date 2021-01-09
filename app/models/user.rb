@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   validates :username, presence: true
   mount_uploader :image, ImageUploader
+  
   has_many :targets
 
   has_many :relationships
@@ -26,5 +27,9 @@ class User < ApplicationRecord
 
   def following?(other_user)
     self.followings.include?(other_user)
+  end
+
+  def user_point(other_user)
+    Day.where(user_id: other_user.id).count * 100
   end
 end

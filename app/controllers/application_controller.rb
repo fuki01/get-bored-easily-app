@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def after_sign_in_path_for(resouce)
-    target_path(current_user.id)
+    target_index_path
   end
   protected
 
@@ -45,6 +45,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def login_user_ridirect
+    if !current_user.nil?
+      redirect_to target_index_path
+    end
+  end
+
   def previous_day_count
     User.find(current_user.id).targets.last.day.count + 1
   end
@@ -54,7 +60,7 @@ class ApplicationController < ActionController::Base
   end
 
   def day_continuous
-    (Time.now.strftime('%Y%m%d').to_i - set_day_last.entryday.strftime("%Y%m%d").to_i)
+    (Time.now.strftime('%Y%m%d').to_i - set_day.last.entryday.strftime("%Y%m%d").to_i)
   end
   
   def access_restriction!

@@ -2,24 +2,29 @@ class DayController < ApplicationController
   before_action :authenticate_user!
   def create
     @user = user_find
+    # 前回のDay cuntの取得
     if not_day_first_nil?
-      @previous_day_cunt = set_day_last.count
+      @previous_day_cunt = set_day.last.count
     end
-    if !(set_day_last.nil?)
+    # Dayの作成が連日かどうかの判定が必要かどうかの判定
+    if !(set_day.last.nil?)
       @day = set_day.build
       @day.entryday =  time_now_format
-      if day_continuous == 1 
+      @day.user_id = current_user.id
+      # Dayの作成が連日かどうかの判定
+      if day_continuous == 1
         @day.count = @previous_day_cunt+1
       else
-        add_a_count
+        @day.count = 1
       end
     else
       @day = set_day.build
+      @day.user_id = current_user.id
       @day.entryday = time_now_format
       add_a_count
     end
-    @point_sum = @day.count*100
-    set_point.create(sum: @point_sum,User_id: @user.id)
+
+    # 保存判定
     if @day.count >7
       redirect_to new_target_path, notice: '登録できませんでした。'
     elsif @day.save && @day.count == 7
@@ -31,15 +36,17 @@ class DayController < ApplicationController
       text = "本日は、100ポイント取得しました。".html_safe
       redirect_to target_index_path
       flash[:notice]= text
+    else
+      redirect_to new_target_path, notice: '登録できませんでした。'
     end
   end
 
   def destroy
     @user = user_find
-    if @user.targets.last.day.last.destroy && @user.targets.last.point.last.destroy
-      redirect_to target_path(current_user.id), notice: '消去できました。'
+    if @user.targets.find(params[:target_id]).day.last.destroy
+      redirect_to target_path, notice: '消去できました。'
     else
-      redirect_to target_path(current_user.id), notice: '消去できませんでした。'
+      redirect_to target_path, notice: '消去できませんでした。'
     end
   end
 
@@ -51,18 +58,10 @@ class DayController < ApplicationController
   end
 
   def set_day
-    @user.targets.last.day
+    @user.targets.find(params[:target_id]).day
   end
-
-  def set_day_last
-    @user.targets.last.day.last
-  end
-
   def day_params
     params.require(:day).permit(:possible)
-  end
-  def set_point
-    @user.targets.last.point
   end
   def time_now_format
     Time.now.strftime('%Y%m%d')

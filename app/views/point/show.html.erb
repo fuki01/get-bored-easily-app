@@ -4,17 +4,17 @@
     <div class="rank_user">
       <table width="300">
       <%cnt=0%>
-        <% @rank.each do |rank| %>
+        <% @points.each do |point| %>
           <% cnt += 1 %>
           <tr>
           <td><p><%= cnt %>位</p></td>
-          <% if(rank[2].file.nil?) %>
+          <% if(point[2].file.nil?) %>
             <td><img src="/assets/icon.png" width="30px" height="30px"></td>
           <% else %>
-            <td><img src=<%=rank[2]%> width="30px" height="30px"></td>
+            <td><img src=<%=point[2]%> width="30px" height="30px"></td>
           <% end %>
-          <td><p><%= rank[0]%></p></td>
-          <td><p><%= rank[1]%>ポイント</p></td>
+          <td><p><%= point[0]%></p></td>
+          <td><p><%= point[1]%>ポイント</p></td>
           </tr>
         <% end %>
       </table>
